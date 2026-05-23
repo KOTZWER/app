@@ -1,0 +1,6 @@
+#include "resource.h"
+
+// Application icon
+// Place your icon file at resources/app.ico
+// If the file is missing the build will still succeed using the default system icon.
+IDI_APPICON ICON "resources/app.ico"
