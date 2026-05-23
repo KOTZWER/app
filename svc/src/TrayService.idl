@@ -1,0 +1,14 @@
+// TrayService.idl
+// RPC interface definition for TrayService <-> TrayApp communication
+// Transport: ALPC (ncalrpc)
+
+[
+    uuid(6BFFD098-A112-3610-9833-46C3F87E345A),
+    version(1.0),
+    pointer_default(unique)
+]
+interface ITrayService
+{
+    // Stop the service (called by the GUI app via RPC)
+    void StopService([in] handle_t hBinding);
+}
