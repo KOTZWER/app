@@ -1,0 +1,26 @@
+stages:
+  - build
+
+variables:
+  CMAKE_BUILD_TYPE: Release
+  INSTALL_PREFIX: dist
+
+build:windows:
+  stage: build
+  tags:
+    - windows          # requires a Windows GitLab Runner with MSVC + CMake
+  script:
+    # Activate MSVC environment (assumes VS 2022 is installed on the runner)
+    - '& "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\Common7\Tools\VsDevCmd.bat" -arch=x64'
+    - cmake -B build -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=%CMAKE_BUILD_TYPE% -DCMAKE_INSTALL_PREFIX=%INSTALL_PREFIX%
+    - cmake --build build --config %CMAKE_BUILD_TYPE%
+    - cmake --install build --config %CMAKE_BUILD_TYPE%
+  artifacts:
+    name: "TrayApp-x64-Release"
+    paths:
+      - dist/bin/TrayApp.exe
+    expire_in: 30 days
+  only:
+    - main
+    - master
+    - merge_requests
